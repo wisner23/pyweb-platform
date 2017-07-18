@@ -1,0 +1,18 @@
+web:
+  image: .
+  command: python run.py local
+  ports: 
+    - "8080:8080"
+  volumes:
+    - /usr/src/app
+  links:
+    - db
+db:
+  image: mongo:3.0.2
+
+proxy:
+  build: ./proxy/
+  volumes_from: 
+    - web
+  links:
+    - web
